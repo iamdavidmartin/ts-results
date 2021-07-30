@@ -265,5 +265,6 @@ export declare namespace Option {
     function any<T extends Option<any>[]>(...options: T): Option<OptionSomeTypes<T>[number]>;
     function isOption<T = any>(value: unknown): value is Option<T>;
 }
+export declare function toString(val: unknown): string;
 export {};
 //# sourceMappingURL=index.d.ts.map

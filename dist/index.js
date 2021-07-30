@@ -4,13 +4,12 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./utils"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Option = exports.Some = exports.None = exports.Result = exports.Ok = exports.OkImpl = exports.Err = exports.ErrImpl = void 0;
-    var utils_1 = require("./utils");
+    exports.toString = exports.Option = exports.Some = exports.None = exports.Result = exports.Ok = exports.OkImpl = exports.Err = exports.ErrImpl = void 0;
     /**
      * Contains the error value
      */
@@ -46,10 +45,10 @@
             return val;
         };
         ErrImpl.prototype.expect = function (msg) {
-            throw new Error(msg + " - Error: " + utils_1.toString(this.val) + "\n" + this._stack);
+            throw new Error(msg + " - Error: " + toString(this.val) + "\n" + this._stack);
         };
         ErrImpl.prototype.unwrap = function () {
-            throw new Error("Tried to unwrap Error: " + utils_1.toString(this.val) + "\n" + this._stack);
+            throw new Error("Tried to unwrap Error: " + toString(this.val) + "\n" + this._stack);
         };
         ErrImpl.prototype.map = function (_mapper) {
             return this;
@@ -64,7 +63,7 @@
             return exports.None;
         };
         ErrImpl.prototype.toString = function () {
-            return "Err(" + utils_1.toString(this.val) + ")";
+            return "Err(" + toString(this.val) + ")";
         };
         Object.defineProperty(ErrImpl.prototype, "stack", {
             get: function () {
@@ -146,7 +145,7 @@
             return this.val;
         };
         OkImpl.prototype.toString = function () {
-            return "Ok(" + utils_1.toString(this.val) + ")";
+            return "Ok(" + toString(this.val) + ")";
         };
         OkImpl.EMPTY = new OkImpl(undefined);
         return OkImpl;
@@ -332,7 +331,7 @@
             return this.val;
         };
         SomeImpl.prototype.toString = function () {
-            return "Some(" + utils_1.toString(this.val) + ")";
+            return "Some(" + toString(this.val) + ")";
         };
         SomeImpl.EMPTY = new SomeImpl(undefined);
         return SomeImpl;
@@ -391,5 +390,16 @@
         }
         Option.isOption = isOption;
     })(Option = exports.Option || (exports.Option = {}));
+    function toString(val) {
+        var value = String(val);
+        if (value === '[object Object]') {
+            try {
+                value = JSON.stringify(val);
+            }
+            catch (_a) { }
+        }
+        return value;
+    }
+    exports.toString = toString;
 });
 //# sourceMappingURL=index.js.map

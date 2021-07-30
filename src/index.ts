@@ -1,5 +1,3 @@
-import { toString } from './utils';
-
 /*
  * Missing Rust Result type methods:
  * pub fn contains<U>(&self, x: &U) -> bool
@@ -572,4 +570,13 @@ export namespace Option {
     export function isOption<T = any>(value: unknown): value is Option<T> {
         return value instanceof Some || value === None;
     }
+}
+export function toString(val: unknown): string {
+    let value = String(val);
+    if (value === '[object Object]') {
+        try {
+            value = JSON.stringify(val);
+        } catch {}
+    }
+    return value;
 }

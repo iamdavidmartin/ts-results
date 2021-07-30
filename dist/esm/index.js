@@ -1,4 +1,3 @@
-import { toString } from './utils';
 /**
  * Contains the error value
  */
@@ -379,4 +378,14 @@ export var Option;
     }
     Option.isOption = isOption;
 })(Option || (Option = {}));
+export function toString(val) {
+    var value = String(val);
+    if (value === '[object Object]') {
+        try {
+            value = JSON.stringify(val);
+        }
+        catch (_a) { }
+    }
+    return value;
+}
 //# sourceMappingURL=index.js.map
