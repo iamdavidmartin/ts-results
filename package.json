@@ -11,6 +11,7 @@
     "test": "jest",
     "format": "prettier . --write"
   },
+  "main": "dist/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
